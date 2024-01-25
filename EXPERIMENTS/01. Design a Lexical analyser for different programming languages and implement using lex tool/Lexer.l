@@ -15,8 +15,8 @@ int state = START;
 
 %%
 "if"|"else"|"while"|"for"|"return"|"elif" { printf("KEYWORD: (%s)\n", yytext); state = START; }
-"{"|"}"|"("|")"|"="|";"|"["|"]"|"+"|"-"|"*"|"/" { printf("SEPARATOR: (%s)\n", yytext); state = START; }
-"=="|">="|"<="|">"|"<"|"<>"|"!="|"and"|"or" { printf("OPERATOR: (%s)\n", yytext); state = START; }
+"{"|"}"|"("|")"|";"|"["|"]" { printf("SEPARATOR: (%s)\n", yytext); state = START; }
+"=="|">="|"<="|">"|"<"|"<>"|"!="|"and"|"or"|"+"|"-"|"*"|"/"|"=" { printf("OPERATOR: (%s)\n", yytext); state = START; }
 [0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)? { printf("NUMBER: (%s)\n", yytext); state = START; }
 [a-zA-Z_][a-zA-Z0-9_]* {
     if (strcmp(yytext, "if") != 0 &&
