@@ -121,35 +121,27 @@ class Tree {
         count++;
     }
 
-    void printTree() {
-        // format the output
-        System.out.println("Value | Left Child | Right Child | Nullable | Firstpos | Lastpos | Followpos");
-        printTree(root);
-    }
+   void printTree() {
+    System.out.println("--------------------------------------------------------------------------------------------");
+    System.out.printf("| %-5s | %-14s | %-15s | %-9s | %-12s | %-8s | %-12s |\n",
+                      "Value", "Left Child", "Right Child", "Nullable", "Firstpos", "Lastpos", "Followpos");
+    System.out.println("--------------------------------------------------------------------------------------------");
+    printTree(root);
+    System.out.println("--------------------------------------------------------------------------------------------");
+}
 
-    void printTree(Node n) {
-        if (n == null) {
-            return;
-        }
-        System.out.print(n.value + " | ");
-        if (n.leftc != null) {
-            System.out.print(n.leftc.value + " | ");
-        } else {
-            System.out.print("null | ");
-        }
-        if (n.rightc != null) {
-            System.out.print(n.rightc.value + " | ");
-        } else {
-            System.out.print("null | ");
-        }
-        System.out.print(n.nullable + " | ");
-        System.out.print(n.firstpos + " | ");
-        System.out.print(n.lastpos + " | ");
-        System.out.print(n.followpos + " | ");
-        System.out.println();
-        printTree(n.leftc);
-        printTree(n.rightc);
+void printTree(Node n) {
+    if (n == null) {
+        return;
     }
+    System.out.printf("| %-5s | %-14s | %-15s | %-9s | %-12s | %-8s | %-12s |\n",
+                      n.value, (n.leftc != null) ? n.leftc.value : "null",
+                      (n.rightc != null) ? n.rightc.value : "null", n.nullable,
+                      n.firstpos, n.lastpos, n.followpos);
+    printTree(n.leftc);
+    printTree(n.rightc);
+}
+
 
     void numberLeaves(Node n) {
         if (isLeaf(n)) {
@@ -260,44 +252,44 @@ class Tree {
         }
     }
 
-void constructDstates() { State s0 = new State();
-s0.value.addAll(root.firstpos); Dstates.add(s0);
+    void constructDstates() { State s0 = new State();
+        s0.value.addAll(root.firstpos); Dstates.add(s0);
 
-Queue<State> queue = new LinkedList<>(); queue.add(s0);
+        Queue<State> queue = new LinkedList<>(); queue.add(s0);
 
-// Set to keep track of processed states 
-Set<Set<Integer>> processedStates = new HashSet<>(); 
+// Set to keep track of processed states
+        Set<Set<Integer>> processedStates = new HashSet<>();
 
-processedStates.add(new HashSet<>(s0.value)); // Convert ArrayList<Integer> to Set<Integer>
+        processedStates.add(new HashSet<>(s0.value)); // Convert ArrayList<Integer> to Set<Integer>
 
-while (!queue.isEmpty()) {
-State currentState = queue.poll();
+        while (!queue.isEmpty()) {
+            State currentState = queue.poll();
 
-for (char a : alphabet) { Set<Integer> U = new HashSet<>();
-for (int p : currentState.value) { Node node = leaves.get(p - 1); if (node.value == a) {
-U.addAll(node.followpos);
-}
-}
+            for (char a : alphabet) { Set<Integer> U = new HashSet<>();
+                for (int p : currentState.value) { Node node = leaves.get(p - 1); if (node.value == a) {
+                    U.addAll(node.followpos);
+                }
+                }
 
-if (!processedStates.contains(U)) { 
-    State newState = new State(); 
-    newState.value.addAll(U); 
-    Dstates.add(newState); 
-    queue.add(newState); 
-    processedStates.add(U);
-}
+                if (!processedStates.contains(U)) {
+                    State newState = new State();
+                    newState.value.addAll(U);
+                    Dstates.add(newState);
+                    queue.add(newState);
+                    processedStates.add(U);
+                }
 
-State newState = getStateByValue(Dstates, U);
-Dtrans.add(new Transition(currentState, newState, a));
-}
-}
-}
+                State newState = getStateByValue(Dstates, U);
+                Dtrans.add(new Transition(currentState, newState, a));
+            }
+        }
+    }
 
-void printDFA(){
-System.out.println('\n' + "DFA States: "); for (Transition t : Dtrans) {
-System.out.println(t.from.value + " -> " + t.to.value + ": " + t.value);
-}
-}
+    void printDFA(){
+        System.out.println('\n' + "DFA States: "); for (Transition t : Dtrans) {
+            System.out.println(t.from.value + " -> " + t.to.value + ": " + t.value);
+        }
+    }
 
     boolean containsState(ArrayList<State> states, Set<Integer> value) {
         for (State state : states) {
@@ -308,24 +300,24 @@ System.out.println(t.from.value + " -> " + t.to.value + ": " + t.value);
         return false;
     }
 
-State getStateByValue(ArrayList<State> states, Set<Integer> value)
-{
-for (State state : states) {
-if (state.value.size() != value.size()) {
-continue; // If sizes are different, sets cannot be equal
-}
+    State getStateByValue(ArrayList<State> states, Set<Integer> value)
+    {
+        for (State state : states) {
+            if (state.value.size() != value.size()) {
+                continue; // If sizes are different, sets cannot be equal
+            }
 
-boolean equalSets = true;
-for (int pos : state.value) { if (!value.contains(pos)) {
-equalSets = false; break;
-}
-}
+            boolean equalSets = true;
+            for (int pos : state.value) { if (!value.contains(pos)) {
+                equalSets = false; break;
+            }
+            }
 
-if (equalSets) { return state;
-}
-}
-return null;
-}
+            if (equalSets) { return state;
+            }
+        }
+        return null;
+    }
 
     boolean isLeaf(Node n) {
         return n.leftc == null && n.rightc == null;
@@ -350,7 +342,7 @@ return null;
     }
 }
 
-class parseTree {
+public class parseTree {
     public static void main(String args[]) {
         Tree t = new Tree();
         Scanner sc = new Scanner(System.in);
@@ -367,3 +359,4 @@ class parseTree {
         sc.close();
     }
 }
+
