@@ -9,10 +9,10 @@ FileContent = getContentFrom("C:\\Users\\aspur\\OneDrive\\SPCC\\EXPERIMENTS\\exp
 ### How to Run the Program
 * All files should be in a single directory
 * Compile the code:
-```java
+```
 javac MacroProcessor.java
 ```
 * Execute the class file:
-```java
+```
 java MacroProcessor
 ```
