@@ -1,6 +1,6 @@
 # System-Programming-and-Compiler-Construction--SPCC--
 
-<img src="https://raw.githubusercontent.com/Dare-marvel/System-Programming-and-Compiler-Construction---SPCC--/main/assets/compiler.png" />
+<img src="https://raw.githubusercontent.com/Dare-marvel/System-Programming-and-Compiler-Construction---SPCC--/main/assets/spcc_banner.png" />
 
 # NOTES:
 
